@@ -7,7 +7,7 @@ public class Server{
 
     ArrayList<String> incoming = new ArrayList<>();
 
-   public ArrayList<String> Comm() throws IOException{
+   public String Comm() throws IOException{
         ServerSocket ss=new ServerSocket(3333);  
         Socket s=ss.accept();  
         DataInputStream din=new DataInputStream(s.getInputStream());  
@@ -17,7 +17,9 @@ public class Server{
         String str="",str2="";  
         while(!str.equals("stop")){  
             str=din.readUTF();  
-            System.out.println("client says: "+str);  
+            incoming.add(str);
+            System.out.println(incoming);
+            // System.out.println("client says: "+str);  
             str2=br.readLine();  
             dout.writeUTF(str2);  
             dout.flush();  
@@ -25,9 +27,9 @@ public class Server{
         din.close();  
         s.close();  
         ss.close();
-        return n;  
+        return str;  
             }
 public static void main(String args[])throws Exception{  
-      Server server = new Server();
-      server.Comm();
+    //   Server server = new Server();
+    //   System.out.println("List => "+server.Comm());
 }}  
